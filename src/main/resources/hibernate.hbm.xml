@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0/EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"
+	>
+<hibernate-mapping package="com.web.model">
+	
+	<class name="User">
+		
+		<!-- Primary Key -->
+		<id name="username" type="string" column="username">
+			<generator class="native"></generator>
+		</id>
+
+		<!-- Properties -->
+		<property name="password" type="string">
+			<column name="password" />   <!-- not-null="true" unique="true" />   -->
+		</property>
+
+		<property name="email" type="string" column="email" />
+
+		<property name="firstname" type="string" />
+		
+		<property name="lastname" type="string" />
+		
+		<property name="phonenumber" type="string" />
+		
+		<property name="occupation" type="string" />
+		
+		<property name="bio" type="string" />
+		
+		<property name="address" type="string" />
+		
+		<property name="dob" type="string" />
+
+	</class>
+	
+	<class name="Post">
+		
+		<!-- Primary Key -->
+		<id name="postId" type="int" column="postid">
+			<generator class="native"></generator>
+		</id>
+		
+		<!-- Properties -->
+		<property name="author" type="string" />
+		<property name="title" type="string" />
+		<property name="body" type="string" />		
+	
+	</class>
+	
+	<class name="Comment">
+		
+		<!-- Primary Key -->
+		<id name="commentId" type="int" column="commentid">
+			<generator class="native"></generator>
+		</id>
+		
+		<!-- Properties -->
+		<property name="postid" type="int" />
+		<property name="author" type="string" />
+		<property name="comment" type="string" />		
+	
+	</class>
+	
+</hibernate-mapping>

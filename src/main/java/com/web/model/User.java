@@ -1,13 +1,27 @@
 package com.web.model;
 
 import java.time.LocalDate;
+import java.util.Set;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Transient;
+
+
 
 /**
  * @author Andrew Pearse
  * User model
  */
-public class User {
 
+@Entity
+public class User {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int userId;
 	private String username;
 	private String password;
 	private String email;
@@ -18,7 +32,8 @@ public class User {
 	private String bio;
 	private String address;
 	private LocalDate dob;
-
+	@Transient
+	private Set<Post> likedPosts;
 	
 	/**
 	 * Creates a new user
@@ -32,10 +47,13 @@ public class User {
 	 * @param bio short description of the user
 	 * @param address current address of the user
 	 * @param dob date of birth of the user
+	 * @param likedPosts posts that a user has liked
 	 */
-	public User(String username, String password, String email, String firstname, String lastname, String phoneNumber,
-			String occupation, String bio, String address, LocalDate dob) {
+	
+	public User(int userId, String username, String password, String email, String firstname, String lastname, String phoneNumber,
+			String occupation, String bio, String address, LocalDate dob, Set<Post> likedPosts) {
 		super();
+		this.userId = userId;
 		this.username = username;
 		this.password = password;
 		this.email = email;
@@ -46,6 +64,7 @@ public class User {
 		this.bio = bio;
 		this.address = address;
 		this.dob = dob;
+		this.likedPosts = likedPosts;
 	}
 
 	public User() {
@@ -132,11 +151,20 @@ public class User {
 		this.dob = dob;
 	}
 
+	public Set<Post> getLikedPosts() {
+		return likedPosts;
+	}
+	
+	public void setLikedPosts(Set<Post> likedPosts) {
+		this.likedPosts = likedPosts;
+	}
+
 	@Override
 	public String toString() {
 		return "User [username=" + username + ", password=" + password + ", email=" + email + ", firstname=" + firstname
 				+ ", lastname=" + lastname + ", phoneNumber=" + phoneNumber + ", occupation=" + occupation + ", bio="
 				+ bio + ", address=" + address + ", dob=" + dob + "]";
 	}
+
 
 }

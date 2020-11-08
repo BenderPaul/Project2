@@ -27,23 +27,24 @@ public class CommentControllerTest {
 	
 	@Before
 	public void init() {
-		ct = new CommentController(csMock);
+		ct = new CommentController();
+		ct.setCs(csMock);
 		comment = new Comment(1, 1, "some username", "Testing comment.");
 	}
 	
 	@Test
 	public void testAddComment() {
-		when(csMock.create(comment)).thenReturn(comment);
-		assertEquals(comment.toString(), ct.create(comment).toString());
+		when(csMock.createComment(comment)).thenReturn(comment);
+		assertEquals(comment.toString(), ct.createComment(comment).toString());
 	}
 	
-	@Test
-	public void testFindAll() {
-		List<Comment> comments = new ArrayList<>();
-		comments.add(comment);
-		when(csMock.findAll()).thenReturn(comments);
-		assertEquals(comments.get(0).toString(), ct.findAll().get(0).toString());
-	}
+//	@Test
+//	public void testFindAll() {
+//		List<Comment> comments = new ArrayList<>();
+//		comments.add(comment);
+//		when(csMock.findAll()).thenReturn(comments);
+//		assertEquals(comments.get(0).toString(), ct.findAll().get(0).toString());
+//	}
 	
 	@Test
 	public void testFindById() {
@@ -53,13 +54,13 @@ public class CommentControllerTest {
 	
 	@Test
 	public void testUpdateComment() {
-		when(csMock.update(comment)).thenReturn(comment);
-		assertEquals(comment.toString(), ct.update(comment).toString());
+		when(csMock.updateComment(comment)).thenReturn(comment);
+		assertEquals(comment.toString(), ct.updateComment(comment).toString());
 	}
 	
 	@Test
 	public void testDeleteComment() {
-		when(csMock.delete(comment.getCommentId())).thenReturn(comment);
-		assertNotNull(ct.delete(comment.getCommentId()));
+		when(csMock.deleteComment(comment.getCommentId())).thenReturn(comment);
+		assertNotNull(ct.deleteComment(comment.getCommentId()));
 	}
 }

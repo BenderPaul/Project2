@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-configuration PUBLIC 
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+	<session-factory>
+		<property name="hibernate.connection.username">nauglesteve</property>
+		<property name="hibernate.connection.password">s123456N</property>
+		<property name="hibernate.connection.url">
+			jdbc:postgresql://naugledatabase.ct9itnphbbno.us-east-2.rds.amazonaws.com:5432/project2
+		</property>
+		<property name="hibernate.connection.driver.class">org.postgresql.Driver</property>
+		<property name="hibernate.default_schema">public</property><!-- public is default already -->
+		
+		<!-- additional hibernate configurations below -->
+
+		<!-- hibernate should detect this automatically, but good to put it anyways -->
+		<property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+		
+		<!-- if hibernate should print the sql queries to the console or log file 
+			if configured (good for dev) -->
+		<property name="hibernate.connection.show_sql">true</property>
+		
+		<!-- this is an option for if you want hibernate to make the printed sql 
+			pretty -->
+		<property name="hibernate.connection.format_sql">true</property>
+		
+		<!-- this is the connection pool size for hibernate -->
+		<property name="hibernate.connection.pool_size">10</property>
+		
+		<!-- hibernate mapping to data definition language 
+			create					will drop your tables upon startup and create them all again
+			create-drop				will drop your tables if something goes wrong causing the program to stop.
+			update					will update the tables if something in the mappings changes
+			none					will not affect the tables at all, no ddl.
+		-->
+		<property name="hibernate.hbm2ddl.auto">create</property>
+		<mapping resource="hibernate.hbm.xml"/>
+		<mapping class="com.web.model.Comment" />
+		<mapping class="com.web.model.Post" />
+		<mapping class="com.web.model.User" />
+		<mapping class="com.web.util.TestSystem" />
+		<mapping class="com.web.util.ProjectTwoUtil" />
+
+	</session-factory>
+	
+	</hibernate-configuration>
+	
+	<!-- For Testing
+	<persistence-unit name="Project2" transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<class>com.web.model.User</class>
+		<properties>
+			<property name="javax.persistence.jdbc.driver"
+			value="com.postgresql.jdbc.driver" />
+		</properties>
+	</persistence-unit>
+	 -->
+

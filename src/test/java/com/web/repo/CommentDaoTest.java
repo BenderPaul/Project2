@@ -15,6 +15,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.annotation.Rollback;
 
+import com.web.dao.CommentDao;
 import com.web.model.Comment;
 
 @Transactional
@@ -28,14 +29,14 @@ public class CommentDaoTest {
 		ac = new ClassPathXmlApplicationContext("config-test.xml");
 		cd = ac.getBean(CommentDao.class);
 		comment = new Comment(1, 1, "some username", "Testing comment.");
-		cd.create(comment);
+		cd.save(comment);
 	}
 	
 	@Test
 	@Rollback(true)
 	public void testAddComment() {
 		Comment c = new Comment();
-		assertNotNull(cd.create(c));
+		assertNotNull(cd.save(c));
 	}
 	
 	@Test
@@ -77,8 +78,8 @@ public class CommentDaoTest {
 	@Test
 	@Rollback(true)
 	public void testDuplicateCommentThrowsException() {
-		cd.create(comment);
-		cd.create(comment);
+		cd.save(comment);
+		cd.save(comment);
 	}
 =======
 //	@Test(expected = HibernateException.class)

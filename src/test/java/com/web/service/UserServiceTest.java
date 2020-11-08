@@ -15,8 +15,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import com.web.dao.UserDao;
 import com.web.model.User;
-import com.web.repo.UserDao;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceTest {
@@ -28,15 +28,16 @@ public class UserServiceTest {
 	
 	@Before
 	public void init() {
-		us = new UserService(udMock);
-		user = new User("some username", "some pass", "some email", "some first", "some last", "some num",
-				"some occupation", "some bio", "some address", LocalDate.now());
+		us = new UserService();
+		us.setUd(udMock);
+		user = new User(1, "some username", "some pass", "some email", "some first", "some last", "some num",
+				"some occupation", "some bio", "some address", LocalDate.now(), null);
 	}
 	
 	@Test
 	public void testAddUser() {
-		when(udMock.create(user)).thenReturn(user);
-		assertEquals(user.toString(), us.create(user).toString());
+		when(udMock.save(user)).thenReturn(user);
+		assertEquals(user.toString(), us.addUser(user).toString());
 	}
 	
 	@Test
@@ -49,20 +50,20 @@ public class UserServiceTest {
 	
 	@Test
 	public void testFindUserByUsername() {
-		when(udMock.findByUsername(user.getUsername())).thenReturn(user);
-		assertEquals(user.toString(), us.findByUsername(user.getUsername()).toString());
+		when(udMock.findById(user.getUsername())).thenReturn(user);
+		assertEquals(user.toString(), us.findById(user.getUsername()).toString());
 	}
 	
 	@Test
 	public void testUpdateUser() {
 		when(udMock.update(user)).thenReturn(user);
-		assertEquals(user.toString(), us.update(user).toString());
+		assertEquals(user.toString(), us.updateUserInformation(user).toString());
 	}
 	
 	@Test
 	public void testDeleteUser() {
 		when(udMock.delete(user.getUsername())).thenReturn(user);
-		assertNotNull(us.delete(user.getUsername()));
+		assertNotNull(us.deleteUser(user.getUsername()));
 	}
 	
 }

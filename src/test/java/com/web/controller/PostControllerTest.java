@@ -27,14 +27,15 @@ public class PostControllerTest {
 	
 	@Before
 	public void init() {
-		pc = new PostController(psMock);
+		pc = new PostController();
+		pc.setPs(psMock);
 		post = new Post(1, "some username", "Testing Post", "This post is all about testing.");
 	}
 	
 	@Test
 	public void testAddPost() {
-		when(psMock.create(post)).thenReturn(post);
-		assertEquals(post.toString(), pc.create(post).toString());
+		when(psMock.createPost(post)).thenReturn(post);
+		assertEquals(post.toString(), pc.createPost(post).toString());
 	}
 	
 	@Test
@@ -49,8 +50,8 @@ public class PostControllerTest {
 	public void testFindAllByAuthor() {
 		List<Post> posts = new ArrayList<>();
 		posts.add(post);
-		when(psMock.findAllByAuthor(post.getAuthor())).thenReturn(posts);
-		assertEquals(posts.get(0).toString(), pc.findAllByAuthor(post.getAuthor()).get(0).toString());
+		when(psMock.findAll()).thenReturn(posts);
+		assertEquals(posts.get(0).toString(), pc.findAll().get(0).toString());
 	}
 	
 	@Test
@@ -61,13 +62,13 @@ public class PostControllerTest {
 	
 	@Test
 	public void testUpdatePost() {
-		when(psMock.update(post)).thenReturn(post);
-		assertEquals(post.toString(), pc.update(post).toString());
+		when(psMock.editPost(post)).thenReturn(post);
+		assertEquals(post.toString(), pc.editPost(post).toString());
 	}
 	
 	@Test
 	public void testDeletePost() {
-		when(psMock.delete(post.getPostId())).thenReturn(post);
-		assertNotNull(pc.delete(post.getPostId()));
+		when(psMock.deletePost(post.getPostId())).thenReturn(post);
+		assertNotNull(pc.deletePost(post.getPostId()));
 	}
 }

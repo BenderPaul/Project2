@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	 https://www.springframework.org/schema/beans/spring-beans.xsd
+	 http://www.springframework.org/schema/context
+	 http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/tx
+	 http://www.springframework.org/schema/tx/spring-tx.xsd
+	 ">
+	 
+	 <context:component-scan base-package="com.web"/>
+	 
+	 <!-- Allows for transaction annotations -->
+	 <tx:annotation-driven proxy-target-class="true" transaction-manager="transactionManager"/>
+	 
+	 <!-- your basic jdbc stuff -->
+	 <bean id="datasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	 	<property name="driverClassName" value="org.postgresql.Driver"/>
+	 	<property name="url" value="jdbc:postgresql://naugledatabase.ct9itnphbbno.us-east-2.rds.amazonaws.com:5432/project2"/>
+	 	<property name="username" value="nauglesteve"/>
+	 	<property name="password" value="s123456N"/>
+	 </bean>
+	 
+	 <!-- This is the hibernate configuration -->
+	 <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+	 	<!-- LocalSessionFactoryBean needs a datasource -->
+	 	<property name="dataSource" ref="datasource"/> 
+	 	<property name="packagesToScan" value="com.web.model"/>
+	 	<property name="hibernateProperties">
+	 		<props>
+	 			<prop key="hibernate.show_sql">true</prop>
+	 			<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+	 			<prop key="hibernate.format_sql">true</prop>
+	 			<prop key="hibernate.hbm2ddl.auto">create</prop>
+	 			<prop key="hibernate.default_schema">public</prop>
+	 		</props>
+	 	</property>
+	 </bean>
+	 
+	 <!-- Spring orm configuration for the transaction manager -->
+	 <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+	 	<property name="sessionFactory" ref="sessionFactory"/>
+	 </bean>
+</beans>

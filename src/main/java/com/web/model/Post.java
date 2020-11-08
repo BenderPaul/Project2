@@ -1,15 +1,25 @@
 package com.web.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /**
  * 
  * @author Andrew Pearse Post model
  */
+
+@Entity
 public class Post {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int postId;
 	private String author;
 	private String title;
 	private String body;
+	private int likes;
 
 	/**
 	 * Creates a new post
@@ -18,6 +28,7 @@ public class Post {
 	 * @param title main header of the post
 	 * @param body body of the post
 	 */
+	
 	public Post(int postId, String owner, String title, String body) {
 		super();
 		this.postId = postId;
@@ -30,6 +41,15 @@ public class Post {
 		super();
 	}
 
+	public int getLikes() {
+		return likes;
+	}
+
+	public void setLikes(int likes) {
+		this.likes = likes;
+	}
+
+	
 	public int getPostId() {
 		return postId;
 	}
