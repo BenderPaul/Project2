@@ -73,22 +73,12 @@ public class CommentDaoTest {
 		c.setCommentId(2);
 		assertNull(cd.delete(comment.getCommentId()));
 	}
-	
-<<<<<<< Updated upstream
-	@Test
-	@Rollback(true)
-	public void testDuplicateCommentThrowsException() {
-		cd.save(comment);
-		cd.save(comment);
-	}
-=======
+
 //	@Test(expected = HibernateException.class)
 //	@Rollback(true)
 //	public void testDuplicateCommentThrowsException() {
 //		cd.save(comment);
 //		cd.save(comment);
 //	}
->>>>>>> Stashed changes
 	
-
 }
