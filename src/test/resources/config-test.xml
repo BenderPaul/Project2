@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	 https://www.springframework.org/schema/beans/spring-beans.xsd
+	 http://www.springframework.org/schema/context
+	 http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/tx
+	 http://www.springframework.org/schema/tx/spring-tx.xsd
+	 ">
+	 
+	 <import resource="config.xml"/>
+	 
+	 <!-- your basic jdbc stuff -->
+	 <bean id="datasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	 	<property name="driverClassName" value="org.postgresql.Driver"/>
+	 	<property name="url" value="jdbc:h2:mem:testDb;DB_CLOSE_DELAY=-1"/>
+	 	<property name="username" value="test"/>
+	 	<property name="password" value="testPass"/>
+	 </bean>
+</beans>

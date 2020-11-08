@@ -6,9 +6,15 @@ import static org.junit.Assert.assertNull;
 import java.util.ArrayList;
 import java.util.List;
 import javax.transaction.Transactional;
+<<<<<<< Updated upstream
 import org.hibernate.HibernateException;
+=======
+
+>>>>>>> Stashed changes
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.annotation.Rollback;
 import com.web.model.Post;
 
@@ -16,10 +22,12 @@ import com.web.model.Post;
 public class PostDaoTest {
 	private PostDao pd;
 	private Post post;
+	private ApplicationContext ac;
 	
 	@Before
 	public void init() {
-		pd = new PostDao();
+		ac = new ClassPathXmlApplicationContext("config-test.xml");
+		pd = ac.getBean(PostDao.class);
 		post = new Post(1, "some username", "Testing Post", "This post is all about testing.");
 		pd.create(post);
 	}
@@ -70,11 +78,20 @@ public class PostDaoTest {
 		assertNull(pd.delete(p.getPostId()));
 	}
 
+<<<<<<< Updated upstream
 	@Test(expected = HibernateException.class)
 	@Rollback(true)
 	public void testDuplicatePostThrowsException() {
 		pd.create(post);
 		pd.create(post);
 	}
+=======
+//	@Test(expected = HibernateException.class)
+//	@Rollback(true)
+//	public void testDuplicatePostThrowsException() {
+//		pd.save(post);
+//		pd.save(post);
+//	}
+>>>>>>> Stashed changes
 	
 }
